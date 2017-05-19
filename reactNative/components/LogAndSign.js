@@ -1,69 +1,79 @@
+
+
+
+
 import React, { Component } from 'react';
 import {
+  AppRegistry,
+  StyleSheet,
   Text,
-  View,
-  TextInput,
-  Image,
   Button,
+  TouchableHighlight,
+  View
 } from 'react-native';
-import styles from './css/styles.css';
 
-
-class LogAndSign extends Component {
+class login extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      username: '',
-      password: '',
-      message: '',
-    };
   }
+
+  get() {
+    fetch('http://localhost:4242/login', {
+      method: 'GET'
+    }).then ((result) => { console.log(result) }); 
+  }
+
   render() {
-    const { message } = this.state;
-
     return (
-
       <View style={styles.container}>
-        <View style={styles.header}>
-          <Image
-            source={require('../public/images/logo.png')}
-            style={{ width: '100%', height: '100%' }}
-          />
+        <View style={styles.row}>
+          <Text style={styles.title}>Signup/Login below</Text>
         </View>
-
-        <View style={{ flex: 1, backgroundColor: 'red', width: '100%' }}>
-          <Text>LogIn/SignUp</Text>
-          <TextInput
-            style={styles.inputBox}
-            placeholder="username"
-            onChangeText={text => this.setState({ username: text })}
-          />
-          <TextInput
-            style={styles.inputBox}
-            placeholder="password"
-            onChangeText={text => this.setState({ password: text })}
-          />
-          <Button
-            title="login"
-            style={styles.button}
-            onPress={this.props._login}
-            raised
-            backgroundColor="black"
-            theme="light"
-            textColor="red"
-          />
+        <View style={styles.row}>
+            <Button 
+              style={styles.buttonText} 
+              onPress = {this.get.bind(this)}
+              title = 'Login with Spotify' />
         </View>
-
-
-        {message !== '' &&
-          <View style={styles.messageBox}>
-            <Text style={styles.message}>{message}</Text>
-          </View>
-        }
       </View>
-
-    );
+    )
   }
 }
 
-export default LogAndSign;
+const styles = StyleSheet.create({
+  container: {
+    justifyContent: 'center',
+    marginTop: 50,
+    padding: 20,
+    backgroundColor: '#ffffff',
+  },
+  title: {
+    fontSize: 30,
+    alignSelf: 'center',
+    marginBottom: 30
+  },
+  buttonText: {
+    fontSize: 18,
+    color: 'white',
+    alignSelf: 'center'
+  },
+  button: {
+    height: 36,
+    backgroundColor: '#48BBEC',
+    borderColor: '#48BBEC',
+    borderWidth: 1,
+    borderRadius: 8,
+    marginBottom: 10,
+    alignSelf: 'stretch',
+    justifyContent: 'center'
+  },
+  inputBox: {
+    backgroundColor: 'white',
+    borderColor: "#F8F8F8",
+    height: 20,
+    width: 100,
+    textAlign: 'center',
+  }
+});
+
+export default login;
