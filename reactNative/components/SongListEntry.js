@@ -4,7 +4,7 @@ import GestureRecognizer, { swipeDirections } from 'react-native-swipe-gestures'
 import { WebView } from 'react-native';
 import styles from './css/styles.css';
 
-import { addToPlaylist, removeFromPlaylist } from '../actions';
+// import { addToPlaylist, removeFromPlaylist } from '../actions';
 
 class SongListEntry extends Component {
   constructor(props) {

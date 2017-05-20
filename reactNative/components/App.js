@@ -87,7 +87,7 @@ class App extends Component {
     return (
       <PlayList
         _addSong={this._addSong}
-        _removeSong={this._onRemoveSong}
+        _removeSong={this._removeSong}
         message={this.state.message}
       />
     );
