@@ -6,12 +6,16 @@ import {
   View,
   TextInput,
   Image,
-  Button,
   ScrollView,
+  TouchableHighlight,
 } from 'react-native';
 import styles from './css/styles.css';
 import Loading from './Loading';
 import SongListEntry from './SongListEntry';
+import LoadingSearch from './LoadingSearch';
+import icons from '../public/images/icons';
+
+let button = false;
 
 const Search = ({
   isFetching, message, songs, _onChangeText, _onSearch, _addSong, _removeSong,
@@ -29,24 +33,22 @@ const Search = ({
 
     <View style={styles.textInput} >
       <TextInput
-        style={styles.inputBox}
+        style={styles.searchInputBox}
         placeholder="Search songs or artist"
         onChangeText={_onChangeText}
       />
-      <Button
-        title="Search"
-        style={styles.button}
+      <TouchableHighlight
+        activeOpacity={1}
+        style={button ? styles.buttonPress : styles.button}
         onPress={_onSearch}
-        raised
-        backgrounColor="#f00"
-        theme="light"
-        textColor="white"
-      />
+      >
+        <Text style={button ? styles.buttonTextPress : styles.buttonText}>Search</Text>
+      </TouchableHighlight>
     </View>
 
-    <ScrollView style={{ flex: 3 }}>
+    <ScrollView style={{ flex: 3, backgroundColor: '#282828' }}>
       {(songs.length === 0)                                                //eslint-disable-line
-        ? (isFetching ? <Loading /> : <Text>Empty.</Text>)
+        ? (isFetching ? <Loading /> : <LoadingSearch />)
         : songs.map(song => (
           <SongListEntry
             key={song.uri}

@@ -46,8 +46,8 @@ class SongListEntry extends Component {
 
   render() {
     const config = {
-      velocityThreshold: 0.1,
-      directionalOffsetThreshold: 10,
+      velocityThreshold: 0.3,
+      directionalOffsetThreshold: 80,
     };
 
     return (
