@@ -76,6 +76,7 @@ module.exports = StyleSheet.create({
     textAlign: 'center',
     marginTop: 10,
     marginBottom: 10,
+    borderRadius: 8,
   },
   text: {
     color: 'white',
@@ -94,6 +95,7 @@ module.exports = StyleSheet.create({
     justifyContent: 'flex-start',
     padding: 10,
     paddingLeft: 80,
+    paddingTop: 40,
   },
   loginButton: {
     backgroundColor: '#585858',
