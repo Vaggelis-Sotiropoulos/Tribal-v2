@@ -62,6 +62,7 @@ module.exports = StyleSheet.create({
     marginTop: 10,
   },
   searchInputBox: {
+    borderRadius: 8,
     backgroundColor: 'whitesmoke',
     borderColor: '#F8F8F8',
     height: 40,

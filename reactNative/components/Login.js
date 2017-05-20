@@ -38,6 +38,7 @@ class Login extends Component {
           <TextInput
             style={styles.inputBox}
             placeholder="username"
+            autoCapitalize="none"
             onChangeText={text => this.setState({ username: text })}
           />
 
