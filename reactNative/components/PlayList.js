@@ -39,35 +39,26 @@ class PlayList extends Component {
           />
         </View>
 
-        <View style={styles.pickerView} >
-          <Picker
-            style={styles.picker}
-            selectedValue="hello"
-            onValueChange={currentPlayList => this.setState({ currentPlayList })}
-          >
-            <Picker.Item color="white" label="Playlist 1" value="1" />
-            <Picker.Item color="white" label="Playlist 2" value="2" />
-          </Picker>
-        </View>
+        <Image source={require('../public/images/recordPlayer.jpg')} style={styles.playlistBackground}>
+          <ScrollView style={{ flex: 1 }}>
+            {isEmpty                                                //eslint-disable-line
+              ? (isFetching ? <Loading /> : <Text>Empty.</Text>)
+              : playlist.map(song => (
+                <SongListEntry
+                  key={song.uri}
+                  song={song}
+                  _addSong={_addSong}
+                  _removeSong={_removeSong}
+                />
+              ))}
+          </ScrollView>
 
-        <ScrollView style={{ flex: 1 }}>
-          {isEmpty                                                //eslint-disable-line
-            ? (isFetching ? <Loading /> : <Text>Empty.</Text>)
-            : playlist.map(song => (
-              <SongListEntry
-                key={song.uri}
-                song={song}
-                _addSong={_addSong}
-                _removeSong={_removeSong}
-              />
-            ))}
-        </ScrollView>
-
-        {message !== '' &&
-          <View style={styles.messageBox}>
-            <Text style={styles.message}>{message}</Text>
-          </View>
-        }
+          {message !== '' &&
+            <View style={styles.messageBox}>
+              <Text style={styles.message}>{message}</Text>
+            </View>
+          }
+        </Image>
       </View>
     );
   }

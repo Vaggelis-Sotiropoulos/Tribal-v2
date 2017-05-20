@@ -14,7 +14,7 @@ class Login extends Component {
     this.state = {
       username: '',
       password: '',
-    }
+    };
   }
 
   get() {
@@ -43,6 +43,7 @@ class Login extends Component {
 
           <TextInput
             style={styles.inputBox}
+            secureTextEntry
             placeholder="password"
             onChangeText={text => this.setState({ password: text })}
           />

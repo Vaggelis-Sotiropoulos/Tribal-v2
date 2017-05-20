@@ -49,7 +49,7 @@ class App extends Component {
   }
 
   _removeSong(song) {
-    this.setState({ message: `[${song.artist}] song ** REMOVED ** ` }, () => {
+    this.setState({ message: `[${song.artist}] ** REMOVED ** ` }, () => {
       setTimeout(() => this.setState({ message: '' }), 1000);
     });
 

@@ -1,18 +1,21 @@
 import React from 'react';
-import { View, Image } from 'react-native';
+import { View, Text, Image } from 'react-native';
 
 import styles from './css/styles.css';
 
 const LoadingSearch = () => (
-  <View style={styles.loadingSearch}>
+  <Image source={require('../public/images/recordPlayer.jpg')} style={styles.background}>
     <View>
-      <Image source={require('../public/images/caleb.png')} />
-      <Image source={require('../public/images/carlo.png')} />
+      <Text style={{
+        fontFamily: 'Barrio',
+        marginTop: 350,
+        marginLeft: 175,
+        fontSize: 60,
+      }}
+      >Tribal
+      </Text>
     </View>
-    <View>
-      <Image source={require('../public/images/vaggelis.png')} />
-    </View>
-  </View>
+  </Image>
 );
 
 export default LoadingSearch;
