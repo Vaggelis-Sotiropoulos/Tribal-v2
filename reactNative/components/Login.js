@@ -1,14 +1,20 @@
 import React, { Component } from 'react';
 import {
-  Button,
+  Text,
   View,
   Image,
+  TouchableHighlight,
+  TextInput,
 } from 'react-native';
 import styles from './css/styles.css';
 
 class Login extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      username: '',
+      password: '',
+    }
   }
 
   get() {
@@ -27,12 +33,37 @@ class Login extends Component {
             style={{ width: '100%', height: '100%' }}
           />
         </View>
-        <View style={styles.row}>
-          <Button
-            style={styles.buttonText}
+        <View style={styles.login}>
+
+          <TextInput
+            style={styles.inputBox}
+            placeholder="username"
+            onChangeText={text => this.setState({ username: text })}
+          />
+
+          <TextInput
+            style={styles.inputBox}
+            placeholder="password"
+            onChangeText={text => this.setState({ password: text })}
+          />
+
+          <TouchableHighlight
+            activeOpacity={1}
+            style={styles.loginButton}
             onPress={this.get.bind(this)}
             title="Login with Spotify"
-          />
+          >
+            <Text style={styles.buttonText}>Login</Text>
+          </TouchableHighlight>
+
+        </View>
+        <Image
+          source={require('../public/images/recordPlayer.gif')}
+          style={{ width: '100%', height: 200 }}
+        />
+        
+        <View style={styles.login}>
+          <Text></Text>
         </View>
       </View>
     );
