@@ -42,7 +42,7 @@ class PlayList extends Component {
         <Image source={require('../public/images/recordPlayer.jpg')} style={styles.playlistBackground}>
           <ScrollView style={{ flex: 1 }}>
             {isEmpty                                                //eslint-disable-line
-              ? (isFetching ? <Loading /> : <Text>Empty.</Text>)
+              ? (isFetching ? <Loading /> : null)
               : playlist.map(song => (
                 <SongListEntry
                   key={song.uri}
