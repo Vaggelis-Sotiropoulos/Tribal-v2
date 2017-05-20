@@ -13,9 +13,6 @@ import styles from './css/styles.css';
 import Loading from './Loading';
 import SongListEntry from './SongListEntry';
 import LoadingSearch from './LoadingSearch';
-import icons from '../public/images/icons';
-
-let button = false;
 
 const Search = ({
   isFetching, message, songs, _onChangeText, _onSearch, _addSong, _removeSong,
@@ -39,17 +36,17 @@ const Search = ({
       />
       <TouchableHighlight
         activeOpacity={1}
-        style={button ? styles.buttonPress : styles.button}
+        style={styles.button}
         onPress={_onSearch}
       >
-        <Text style={button ? styles.buttonTextPress : styles.buttonText}>Search</Text>
+        <Text style={styles.buttonText}>Search</Text>
       </TouchableHighlight>
     </View>
 
-    <ScrollView style={{ flex: 3, backgroundColor: '#282828' }}>
-      {(songs.length === 0)                                                //eslint-disable-line
-        ? (isFetching ? <Loading /> : <LoadingSearch />)
-        : songs.map(song => (
+    {(songs.length === 0)                                                //eslint-disable-line
+      ? (isFetching ? <Loading /> : <LoadingSearch />)
+      : <ScrollView style={{ flex: 3, backgroundColor: '#282828' }}>
+        {songs.map(song => (
           <SongListEntry
             key={song.uri}
             song={song}
@@ -57,7 +54,8 @@ const Search = ({
             _removeSong={_removeSong}
           />
         ))}
-    </ScrollView>
+      </ScrollView>
+    }
 
     {message !== '' &&
       <View style={styles.messageBox}>

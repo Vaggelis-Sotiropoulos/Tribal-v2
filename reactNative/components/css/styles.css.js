@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native';
 module.exports = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start',
     backgroundColor: '#282828',
   },
   headerBar: {
@@ -115,16 +115,20 @@ module.exports = StyleSheet.create({
     height: 80,
   },
   message: {
-    backgroundColor: '#282828',
+    backgroundColor: 'rgba(0,0,0,0)',
     color: 'white',
     fontWeight: 'bold',
     textAlign: 'center',
+    fontSize: 20,
   },
   messageBox: {
-    height: 75,
+    minHeight: 50,
+    marginBottom: 60,
     margin: 10,
-    marginBottom: 40,
-    padding: 5,
+    padding: 10,
+    backgroundColor: '#AF0000',
+    borderRadius: 5,
+    zIndex: 1,
   },
   loading: {
     flex: 1,
@@ -151,5 +155,21 @@ module.exports = StyleSheet.create({
     width: '100%',
     height: 100,
     backgroundColor: '#282828',
+  },
+  background: {
+    flex: 1,
+    minHeight: 500,
+    justifyContent: 'flex-start',
+    alignItems: 'center',
+    width: null,
+    height: null,
+    resizeMode: 'stretch',
+    backgroundColor: 'rgba(0,0,0,0)',
+  },
+  playlistBackground: {
+    flex: 1,
+    width: null,
+    height: null,
+    resizeMode: 'stretch',
   },
 });
