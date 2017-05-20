@@ -39,18 +39,18 @@ class App extends Component {
     this._login = this._login.bind(this);
   }
 
-  _addSong(song, message) {
-    this.setState({ message: `[${song.artist}] ${song.uri} **${message}** ` }, () => {
-      setTimeout(() => this.setState({ message: '' }), 3500);
+  _addSong(song) {
+    this.setState({ message: `[${song.artist}] ** ADDED ** ` }, () => {
+      setTimeout(() => this.setState({ message: '' }), 1000);
     });
 
     const { dispatch } = this.props;
     dispatch(addToPlaylist(song));
   }
 
-  _removeSong(song, message) {
-    this.setState({ message: `[${song.artist}] ${song.uri} **${message}** ` }, () => {
-      setTimeout(() => this.setState({ message: '' }), 3500);
+  _removeSong(song) {
+    this.setState({ message: `[${song.artist}] song ** REMOVED ** ` }, () => {
+      setTimeout(() => this.setState({ message: '' }), 1000);
     });
 
     const { dispatch } = this.props;
