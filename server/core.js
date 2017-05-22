@@ -5,7 +5,13 @@ const request = require('request');
 const mongoose = require('mongoose');
 const querystring = require('querystring');
 const cookieParser = require('cookie-parser');
-
+const passport = require('passport');
+const swig = require('swig');
+const methodOverride = require('method-override');
+const session = require('express-session');
+const SpotifyStrategy = require('passport-spotify').Strategy;
+const consolidate = require('consolidate');
+const bodyParser = require('body-parser');
 const app = express();
 const http = require('http').Server(app);
 const io = require('socket.io')(http);
@@ -33,8 +39,7 @@ app.get('/clients', (req, res) => {
 });
 
 // serve up client files
-app.use(express.static(`${__dirname}/../client`))
-  .use(cookieParser());
+app.use(express.static(`${__dirname}/../client`));
 app.use(express.static(`${__dirname}/../node_modules`));
 
 // Query Spotify's Search API for a track name, and return an array of all matching tracks. Each track in the response will
@@ -121,135 +126,83 @@ io.on( 'connection', function(client) {
   });
 });
 
-var client_id = '03ef82e56fd64d0ab0af33bb8f993831'; // Your client id
-var client_secret = 'c7353df3cbfc48c9826f04ceef2ba066'; // Your secret
-var redirect_uri = 'http://localhost:4242/welcome'; // Your redirect uri
 
-/**
- * Generates a random string containing numbers and letters
- * @param  {number} length The length of the string
- * @return {string} The generated string
- */
-var generateRandomString = function(length) {
-  var text = '';
-  var possible = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+/**********************************************************************/
 
-  for (var i = 0; i < length; i++) {
-    text += possible.charAt(Math.floor(Math.random() * possible.length));
-  }
-  return text;
-};
 
-var stateKey = 'spotify_auth_state';
+app.use(express.static(`${__dirname}/../client`));
+app.set('views', __dirname + '../client/components');
+app.set('view engine', 'html');
+app.engine('html', consolidate.swig);
 
-// app.use(express.static(__dirname + '/public'))
-//    .use(cookieParser());
+var appKey = '03ef82e56fd64d0ab0af33bb8f993831';
+var appSecret = 'c7353df3cbfc48c9826f04ceef2ba066';
+var redirect_uri = 'http://localhost:4242/callback';
 
-app.get('/login', function(req, res) {
-
-  var state = generateRandomString(16);
-  res.cookie(stateKey, state);
-
-  // your application requests authorization
-  var scope = 'user-read-private user-read-email';
-  console.log('inside man');
-  res.redirect('https://accounts.spotify.com/authorize?' +
-    querystring.stringify({
-      response_type: 'code',
-      client_id: client_id,
-      scope: scope,
-      redirect_uri: redirect_uri,
-      state: state
-    }));
+passport.serializeUser(function(user, done) {
+  done(null, user);
 });
 
-app.get('/welcome', function(req, res) {
+passport.deserializeUser(function(obj, done) {
+  done(null, obj);
+});
 
-  // your application requests refresh and access tokens
-  // after checking the state parameter
-
-  var code = req.query.code || null;
-  var state = req.query.state || null;
-  var storedState = req.cookies ? req.cookies[stateKey] : null;
-
-  if (state === null || state !== storedState) {
-    res.redirect('/#' +
-      querystring.stringify({
-        error: 'state_mismatch'
-      }));
-  } else {
-    res.clearCookie(stateKey);
-    var authOptions = {
-      url: 'https://accounts.spotify.com/api/token',
-      form: {
-        code: code,
-        redirect_uri: redirect_uri,
-        grant_type: 'authorization_code'
-      },
-      headers: {
-        'Authorization': 'Basic ' + (new Buffer(client_id + ':' + client_secret).toString('base64'))
-      },
-      json: true
-    };
-
-    request.post(authOptions, function(error, response, body) {
-      if (!error && response.statusCode === 200) {
-
-        var access_token = body.access_token,
-            refresh_token = body.refresh_token;
-
-        var options = {
-          url: 'https://api.spotify.com/v1/me',
-          headers: { 'Authorization': 'Bearer ' + access_token },
-          json: true
-        };
-
-        // use the access token to access the Spotify Web API
-        request.get(options, function(error, response, body) {
-          console.log(body);
-        });
-
-        // we can also pass the token to the browser to make requests from there
-        res.redirect('/#' +
-          querystring.stringify({
-            access_token: access_token,
-            refresh_token: refresh_token
-          }));
-      } else {
-        res.redirect('/#' +
-          querystring.stringify({
-            error: 'invalid_token'
-          }));
-      }
+var accessTok;
+passport.use(new SpotifyStrategy({
+  clientID: appKey,
+  clientSecret: appSecret,
+  callbackURL: 'http://localhost:4242/callback'
+  },
+  function(accessToken, refreshToken, profile, done) {
+    console.log('inside');
+    process.nextTick(function () {
+      accessTok = accessToken;
+      return done(null, profile);
     });
-  }
-});
+  }));
 
-app.get('/refresh_token', function(req, res) {
+app.use(cookieParser());
+app.use(bodyParser());
+app.use(methodOverride());
+app.use(session({ secret: 'Rethymno Kriti' }));
+app.use(passport.initialize());
+app.use(passport.session());
 
-  // requesting access token from refresh token
-  var refresh_token = req.query.refresh_token;
-  var authOptions = {
-    url: 'https://accounts.spotify.com/api/token',
-    headers: { 'Authorization': 'Basic ' + (new Buffer(client_id + ':' + client_secret).toString('base64')) },
-    form: {
-      grant_type: 'refresh_token',
-      refresh_token: refresh_token
-    },
+app.get('/authorize', passport.authenticate('spotify', {scope: ['user-read-email', 'user-read-private'], showDialog: true}),
+  function(req, res){
+    console.log('fail');
+  });
+
+app.get('/callback',
+  passport.authenticate('spotify', { failureRedirect: '/login' }),
+  function(req, res) {
+    res.redirect('/');
+  });
+
+app.get('/mylists', function(req, res) {
+  var bod;
+  var options = {
+    url: 'https://api.spotify.com/v1/me/playlists',
+    headers: { 'Authorization': 'Bearer ' + accessTok },
     json: true
   };
-
-  request.post(authOptions, function(error, response, body) {
-    if (!error && response.statusCode === 200) {
-      var access_token = body.access_token;
-      res.send({
-        'access_token': access_token
-      });
-    }
+  request(options, function (error, response, body) {
+    //console.log('res: ', response.body)
+    console.log('first');
+    console.log(response.body);
+    res.send(response.body);
+    // res.end();
   });
 });
 
+app.get('/logout', function(req, res){
+  accessTok = null;
+  req.logout();
+  res.redirect('/');
+});
 
+
+/**************************************************************/
 
 
 // start the webserver
@@ -265,3 +218,8 @@ module.exports = app;
 module.exports.SERVER_PORT = SERVER_PORT;
 module.exports.DATABASE_CONNECTED_MESSAGE_PREFIX = DATABASE_CONNECTED_MESSAGE_PREFIX;
 module.exports.DATABASE_CONNECTED_MESSAGE = DATABASE_CONNECTED_MESSAGE;
+
+
+
+
+

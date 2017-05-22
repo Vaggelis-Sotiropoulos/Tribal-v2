@@ -83,7 +83,8 @@ th, td {
 }
 
 .addSongButton,
-#searchButton {
+#searchButton,
+.pl {
   border: none;
   background-color: black;
   border-radius: 15px;
@@ -130,4 +131,8 @@ th, td {
   font-weight: bold;
   padding: 3px;
   margin-left: 15%;
+}
+
+#playlists {
+  margin-top: 5%;
 }
