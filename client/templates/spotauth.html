@@ -1,0 +1,19 @@
+<div id="spotAuthButton" class="row" align='left'>
+  <div class="col-xs-1">
+    <form action="/authorize" >
+      <input type="submit" value="Log In" class='pl'/>
+    </form>
+  </div>
+  <div class="col-xs-1">
+    <form action="/logout">
+      <input type="submit" value="Log Out" class="pl" />
+    </form>
+  </div>
+  <div class="col-xs-1">
+    <button ng-click="ctrl.authGet()" class='pl'>My playLists</button>
+  </div>
+  <div id="playlists" align="center"></div>
+</div>
+
+
+  
