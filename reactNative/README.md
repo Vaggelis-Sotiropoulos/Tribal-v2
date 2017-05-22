@@ -5,6 +5,8 @@
 - `rm -fr $TMPDIR/react-*`
 - `node node_modules/react-native/local-cli/cli.js start --reset-cache`
 
+- `watchman watch-del-all && rm -rf node_modules && npm install && rm -fr $TMPDIR/react-* && react-native run-ios --reset-cache`
+
 ### Common Errors / Bugs
 
 - https://github.com/facebook/react-native/issues/4968

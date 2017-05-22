@@ -30,8 +30,8 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
                BuildableName = "reactNative.app"
-               BlueprintName = "reactNative"
-               ReferencedContainer = "container:reactNative.xcodeproj">
+               BlueprintName = "Tribal"
+               ReferencedContainer = "container:Tribal.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -43,9 +43,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "reactNativeTests.xctest"
-               BlueprintName = "reactNativeTests"
-               ReferencedContainer = "container:reactNative.xcodeproj">
+               BuildableName = "TribalTests.xctest"
+               BlueprintName = "TribalTests"
+               ReferencedContainer = "container:Tribal.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -61,9 +61,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "reactNativeTests.xctest"
-               BlueprintName = "reactNativeTests"
-               ReferencedContainer = "container:reactNative.xcodeproj">
+               BuildableName = "TribalTests.xctest"
+               BlueprintName = "TribalTests"
+               ReferencedContainer = "container:Tribal.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -72,8 +72,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
             BuildableName = "reactNative.app"
-            BlueprintName = "reactNative"
-            ReferencedContainer = "container:reactNative.xcodeproj">
+            BlueprintName = "Tribal"
+            ReferencedContainer = "container:Tribal.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -95,8 +95,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
             BuildableName = "reactNative.app"
-            BlueprintName = "reactNative"
-            ReferencedContainer = "container:reactNative.xcodeproj">
+            BlueprintName = "Tribal"
+            ReferencedContainer = "container:Tribal.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <EnvironmentVariables>
@@ -121,8 +121,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
             BuildableName = "reactNative.app"
-            BlueprintName = "reactNative"
-            ReferencedContainer = "container:reactNative.xcodeproj">
+            BlueprintName = "Tribal"
+            ReferencedContainer = "container:Tribal.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
