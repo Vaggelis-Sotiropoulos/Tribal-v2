@@ -137,7 +137,7 @@ app.engine('html', consolidate.swig);
 
 var appKey = '03ef82e56fd64d0ab0af33bb8f993831';
 var appSecret = 'c7353df3cbfc48c9826f04ceef2ba066';
-var redirect_uri = '/callback';
+var redirect_uri = 'https://tribal-global-mobile.herokuapp.com/callback';
 
 passport.serializeUser(function(user, done) {
   done(null, user);
@@ -151,7 +151,7 @@ var accessTok;
 passport.use(new SpotifyStrategy({
   clientID: appKey,
   clientSecret: appSecret,
-  callbackURL: '/callback'
+  callbackURL: 'https://tribal-global-mobile.herokuapp.com/callback'
   },
   function(accessToken, refreshToken, profile, done) {
     console.log('inside');
